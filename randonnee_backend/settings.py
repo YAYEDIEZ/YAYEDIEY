@@ -9,12 +9,12 @@ https://docs.djangoproject.com/en/5.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
-
+import os
+PORT = os.environ.get("PORT", 8000)
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
@@ -25,11 +25,10 @@ SECRET_KEY = 'django-insecure-r-tw!rdgn+exafqh4y=1p_$wk6toxag6bzizmd(2567wb13xeg
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+# Configuration des hôtes autorisés
+ALLOWED_HOSTS = ['*']
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -81,17 +80,21 @@ REST_FRAMEWORK = {
     ],
 }
 
-
 WSGI_APPLICATION = 'randonnee_backend.wsgi.application'
 
-
-# Database
-# https://docs.djangoproject.com/en/5.1/ref/settings/#databases
-
+# Database configuration
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.sqlite3',  # SQLite par défaut
+        'NAME': BASE_DIR / 'db.sqlite3',         # Fichier SQLite
+    },
+    'mysql_db': {
+        'ENGINE': 'django.db.backends.mysql',   # Utilisation de MySQL
+        'NAME': 'mon_projet',                   # Nom de la base de données
+        'USER': 'YAYE DIEYNABA',                # Nom d'utilisateur MySQL
+        'PASSWORD': 'YDf@240198//',             # Mot de passe MySQL
+        'HOST': 'localhost',                    # Hôte MySQL (généralement localhost)
+        'PORT': '3306',                         # Port MySQL
     }
 }
 
@@ -103,13 +106,11 @@ SWAGGER_SETTINGS = {
             'in': 'header'
         }
     },
+    # Désactiver l'authentification par session pour Swagger
     'USE_SESSION_AUTH': False
 }
 
-
 # Password validation
-# https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -125,32 +126,22 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 PASSWORD_HASHERS = [
+    # Utilisation de plusieurs algorithmes de hachage pour les mots de passe
     'django.contrib.auth.hashers.PBKDF2PasswordHasher',
     'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
     'django.contrib.auth.hashers.Argon2PasswordHasher',
     'django.contrib.auth.hashers.BCryptSHA256PasswordHasher',
 ]
 
-# Internationalization
-# https://docs.djangoproject.com/en/5.1/topics/i18n/
-
+# Internationalization settings
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'UTC'
-
 USE_I18N = True
-
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.1/howto/static-files/
-
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 
 # Default primary key field type
-# https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

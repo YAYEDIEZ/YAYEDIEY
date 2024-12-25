@@ -10,3 +10,4 @@ PyYAML==6.0.2
 sqlparse==0.5.3
 tzdata==2024.2
 uritemplate==4.1.1
+gunicorn==21.2.0
